@@ -1,0 +1,40 @@
+Baseline stdlib intake probe (not an old checkout)
+Duplicate keys: {'goal': 2}
+Non-finite constant: {'value': nan}
+
+Revised local tests
+test_adoption_requires_test_and_known_license (test_audit.AuditTests.test_adoption_requires_test_and_known_license) ... ok
+test_cli_json_distinguishes_valid_draft_from_readiness (test_audit.AuditTests.test_cli_json_distinguishes_valid_draft_from_readiness) ... ok
+test_cli_malformed_files_are_input_errors (test_audit.AuditTests.test_cli_malformed_files_are_input_errors) ... ok
+test_json_type_mutations_never_crash (test_audit.AuditTests.test_json_type_mutations_never_crash) ... ok
+test_malformed_evidence_reports_error_without_traceback (test_audit.AuditTests.test_malformed_evidence_reports_error_without_traceback) ... ok
+test_missing_reason_for_rejection_fails (test_audit.AuditTests.test_missing_reason_for_rejection_fails) ... ok
+test_skill_frontmatter_is_installable_single_file (test_audit.AuditTests.test_skill_frontmatter_is_installable_single_file) ... ok
+test_unpinned_source_fails (test_audit.AuditTests.test_unpinned_source_fails) ... ok
+test_unreferenced_source_fails (test_audit.AuditTests.test_unreferenced_source_fails) ... ok
+test_unrelated_unlicensed_candidate_does_not_block_adoption (test_audit.AuditTests.test_unrelated_unlicensed_candidate_does_not_block_adoption) ... ok
+test_valid_reviewed_report_passes (test_audit.AuditTests.test_valid_reviewed_report_passes) ... ok
+test_candidate_duplicates_are_rejected (test_contract.ContractTests.test_candidate_duplicates_are_rejected) ... ok
+test_evidence_cannot_escape_pinned_commit (test_contract.ContractTests.test_evidence_cannot_escape_pinned_commit) ... ok
+test_nested_type_mutations_never_raise (test_contract.ContractTests.test_nested_type_mutations_never_raise) ... ok
+test_no_findings_is_honest_valid_outcome (test_contract.ContractTests.test_no_findings_is_honest_valid_outcome) ... ok
+test_placeholder_commit_is_rejected (test_contract.ContractTests.test_placeholder_commit_is_rejected) ... ok
+test_ready_requires_measurements_reuse_and_both_test_cases (test_contract.ContractTests.test_ready_requires_measurements_reuse_and_both_test_cases) ... ok
+test_real_template_is_explicitly_not_a_run (test_contract.ContractTests.test_real_template_is_explicitly_not_a_run) ... ok
+test_search_count_cannot_exceed_total (test_contract.ContractTests.test_search_count_cannot_exceed_total) ... ok
+test_unavailable_repo_needs_reason_not_fake_sha (test_contract.ContractTests.test_unavailable_repo_needs_reason_not_fake_sha) ... ok
+test_unknown_metric_reference_rejected (test_contract.ContractTests.test_unknown_metric_reference_rejected) ... ok
+test_untyped_tests_not_accepted (test_contract.ContractTests.test_untyped_tests_not_accepted) ... ok
+test_unverified_draft_is_valid_but_not_ready (test_contract.ContractTests.test_unverified_draft_is_valid_but_not_ready) ... ok
+test_version_is_required (test_contract.ContractTests.test_version_is_required) ... ok
+
+----------------------------------------------------------------------
+Ran 24 tests in 1.476s
+
+OK
+
+Historical draft structural audit
+{"valid": true, "readiness_checked": false, "status": "draft", "errors": [], "limits": "Offline contract check only: no source fetching, test execution, legal clearance or install approval."}
+
+JSON boundary example recorded readiness
+{"valid": true, "readiness_checked": true, "status": "complete", "errors": [], "limits": "Offline contract check only: no source fetching, test execution, legal clearance or install approval."}

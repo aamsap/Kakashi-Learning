@@ -1,0 +1,51 @@
+{
+  "schema_version": 2,
+  "kind": "run",
+  "status": "complete",
+  "goal": "Make Kakashi's stdlib JSON ledger intake reject ambiguous input with controlled errors, while preserving valid drafts",
+  "context": {
+    "task": "Harden the existing ledger CLI rather than create another skill",
+    "environment": "Local Linux, Python stdlib CLI; live subprocess tests",
+    "constraints": ["No new dependencies", "No active-profile installation", "No publication", "Read-only upstream inspection"],
+    "assumptions": ["A documented parsing technique can be implemented locally without copying upstream source"],
+    "existing_skills": ["Kakashi Learning draft and its audit helper"],
+    "missing_capabilities": []
+  },
+  "discovery": {"mode": "provided", "budget": "One targeted reference repository: CPython JSON docs and license", "stop_reason": "The documented hooks and actual local tests resolved the intake boundary question"},
+  "metrics": [
+    {"name": "controlled JSON intake", "target": "A valid draft passes; duplicate/non-finite/malformed inputs produce input errors without traceback", "method": "Compare baseline json.loads probes with subprocess regression tests against the revised CLI", "baseline": "Default json.loads silently retains the last duplicate key and accepts NaN", "observation": "Valid draft preserved and malformed input regression cases pass", "status": "met"}
+  ],
+  "searches": [],
+  "candidates": [
+    {"repo": "python/cpython", "commit": "68d86eb18a91226975eec5523d2d55d4796b1211", "license": "PSF-2.0 (license text inspected; GitHub API reported NOASSERTION)", "disposition": "inspected", "reason": "Primary documentation for the stdlib decoder actually used; no code copied"}
+  ],
+  "decisions": [
+    {
+      "technique": "Strict object-pair and constant handling with bounded intake",
+      "outcome": "adapt",
+      "metric": "controlled JSON intake",
+      "confidence": "observed",
+      "reason": "Preserves the user's no-dependency constraint while preventing duplicate declarations and non-finite input from silently entering a ledger",
+      "evidence": [
+        {"url": "https://github.com/python/cpython/blob/68d86eb18a91226975eec5523d2d55d4796b1211/Doc/library/json.rst#L295-L303", "note": "object_pairs_hook receives ordered pairs, enabling detection before dict overwrites"},
+        {"url": "https://github.com/python/cpython/blob/68d86eb18a91226975eec5523d2d55d4796b1211/Doc/library/json.rst#L330-L336", "note": "parse_constant can reject NaN and infinities; local tests additionally cover overflow"},
+        {"url": "https://github.com/python/cpython/blob/68d86eb18a91226975eec5523d2d55d4796b1211/Doc/library/json.rst#L23-L26", "note": "Documentation cautions that untrusted JSON can consume resources and recommends limiting input size"}
+      ],
+      "reuse": {"mode": "idea", "status": "cleared", "note": "Independently implemented documented stdlib interfaces, no copied upstream text/code; attribution in report.md and applicable LICENSE lines 59-70 inspected. This declaration is not a redistribution clearance for CPython material."},
+      "tests": [
+        {"case": "typical", "status": "passed", "method": "test_cli_json_distinguishes_valid_draft_from_readiness invokes the real CLI with a structured draft", "result": "Draft returns exit 0; readiness correctly returns exit 1", "receipt": "examples/json-boundaries/verification.txt"},
+        {"case": "negative", "status": "passed", "method": "test_cli_malformed_files_are_input_errors invokes the CLI with invalid UTF-8, duplicate keys, NaN, overflow, deep nesting and oversize input", "result": "All malformed cases return exit 2 without traceback", "receipt": "examples/json-boundaries/verification.txt"}
+      ]
+    },
+    {
+      "technique": "Use permissive json.loads as the complete intake boundary",
+      "outcome": "reject",
+      "metric": "controlled JSON intake",
+      "confidence": "observed",
+      "reason": "The baseline probe shows duplicate declarations being overwritten and NaN accepted; that is inappropriate for this auditable record",
+      "evidence": [{"url": "https://github.com/python/cpython/blob/68d86eb18a91226975eec5523d2d55d4796b1211/Doc/library/json.rst#L330-L336", "note": "Strict constant rejection is configurable rather than the default; baseline receipt demonstrates why the default does not fit this use"}]
+    }
+  ],
+  "risks": ["No installed-Hermes or LLM behavioral benchmark", "Offline checker trusts recorded statuses and receipt strings", "Pinned source attribution is not an automatic legal assessment"],
+  "artifacts": ["scripts/audit.py", "kakashi-learning/SKILL.md"]
+}

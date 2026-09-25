@@ -1,0 +1,25 @@
+{
+  "schema_version": 2,
+  "kind": "run",
+  "status": "draft",
+  "goal": "Produce a portable, compact Hermes SKILL.md from a repository method without silently importing untrusted execution permissions",
+  "context": {"task": "Author the first Kakashi skill draft", "environment": "Hermes; local Python structural checks only", "constraints": ["No active-profile installation", "No publication"], "assumptions": ["Single-file packaging is useful; activation not tested"], "existing_skills": ["Hermes skill-authoring guidance consulted"], "missing_capabilities": ["No approved fresh-session activation test"]},
+  "discovery": {"mode": "search", "budget": "Historical smoke run: one query, five returned results, one inspected repository", "stop_reason": "Smoke-test scope reached; other returned repositories not assessed"},
+  "metrics": [
+    {"name": "single-file structure", "target": "draft has basic frontmatter and required sections", "method": "test_skill_frontmatter_is_installable_single_file", "baseline": "No previous draft", "observation": "Structural test passed in original smoke run; behavior not exercised", "status": "met"},
+    {"name": "provenance completeness", "target": "all decisions cite a pinned inspected file", "method": "Inspect cited file and check ledger", "baseline": "No previous ledger", "observation": "Both decisions reference the inspected specification", "status": "met"},
+    {"name": "activation behavior", "target": "Use the installed skill successfully in a fresh session", "method": "Approved install and representative task plus negative case", "baseline": "unknown", "observation": "Not run; no installation approved", "status": "unverified"}
+  ],
+  "searches": [
+    {"query": "agent skills specification in:name,description", "source": "Historical GitHub repository search, first page per_page=5", "total_count": 303, "returned_count": 5}
+  ],
+  "candidates": [
+    {"repo": "agentskills/agentskills", "commit": "69ef37e9424c0a7ea9dd2293b559e43ec8176379", "license": "Apache-2.0", "disposition": "inspected", "reason": "Selected for the format specification; metadata license only, no file-specific redistribution clearance"}
+  ],
+  "decisions": [
+    {"technique": "Self-contained SKILL.md with optional companion files", "outcome": "adapt", "metric": "single-file structure", "confidence": "documented", "reason": "Proposed portability benefit; actual activation remains unverified", "evidence": [{"url": "https://github.com/agentskills/agentskills/blob/69ef37e9424c0a7ea9dd2293b559e43ec8176379/docs/specification.mdx#L6-L16", "note": "Directory structure specifies SKILL.md required; scripts, references and assets optional"}], "reuse": {"mode": "idea", "status": "needs_review", "note": "Original prose rather than copied source; final publication review pending"}, "tests": [{"case": "typical", "status": "passed", "method": "Structural frontmatter test only", "result": "Passed; not an activation test", "receipt": "examples/agent-skills-format/report.md"}, {"case": "negative", "status": "not_run", "method": "Activate without companion files", "result": "No live activation attempted"}]},
+    {"technique": "Interpret experimental allowed-tools as automatic permissions", "outcome": "reject", "metric": "activation behavior", "confidence": "inferred", "reason": "Our safety decision: a declared tool list should not be treated as approval; this is not an upstream recommendation to bypass consent", "evidence": [{"url": "https://github.com/agentskills/agentskills/blob/69ef37e9424c0a7ea9dd2293b559e43ec8176379/docs/specification.mdx#L19-L32", "note": "Frontmatter table marks allowed-tools experimental; permission-bypass interpretation is ours to reject, not a demonstrated upstream behavior"}]}
+  ],
+  "risks": ["This historical smoke test covers one selected repo, not the 303 reported search results", "No model performance or activation measured", "Only the selected repository was recorded in this historical example; unassessed search results were not individually logged"],
+  "artifacts": ["kakashi-learning/SKILL.md"]
+}

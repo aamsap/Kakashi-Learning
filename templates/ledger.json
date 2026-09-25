@@ -1,0 +1,45 @@
+{
+  "schema_version": 2,
+  "kind": "template",
+  "status": "draft",
+  "goal": "Replace this with the specific agent/user outcome",
+  "context": {
+    "task": "Describe the actual user or agent task",
+    "environment": "Observed tools, versions and target environment; unknowns explicit",
+    "constraints": ["No installation or publication without separate approval"],
+    "assumptions": [],
+    "existing_skills": [],
+    "missing_capabilities": []
+  },
+  "discovery": {
+    "mode": "search",
+    "budget": "Three query variants, ten candidates, three deep inspections",
+    "stop_reason": "Replace with the actual stopping reason"
+  },
+  "metrics": [
+    {"name": "task success rate", "target": "define a measurable target", "method": "describe a repeatable before/after task", "baseline": "unknown", "observation": "not measured", "status": "unverified"}
+  ],
+  "searches": [
+    {"query": "exact sanitized query used", "source": "GitHub repository search", "total_count": null, "returned_count": 0}
+  ],
+  "candidates": [
+    {"repo": "owner/repo", "commit": null, "license": "unknown", "disposition": "unavailable", "reason": "Replace with inspected/skipped/unavailable and explain"}
+  ],
+  "decisions": [
+    {
+      "technique": "name a technique actually found",
+      "outcome": "adapt",
+      "reason": "Explain fit, changes, dependencies and tradeoffs",
+      "metric": "task success rate",
+      "confidence": "documented",
+      "evidence": [{"url": "REPLACE_WITH_INSPECTED_PINNED_FILE_URL", "note": "what this evidence establishes, not the hoped-for benefit"}],
+      "reuse": {"mode": "idea", "status": "needs_review", "note": "Record licensing evidence, applicable obligations and attribution"},
+      "tests": [
+        {"case": "typical", "status": "not_run", "method": "Describe representative task", "result": "Explain why not run"},
+        {"case": "negative", "status": "not_run", "method": "Describe failure/boundary task", "result": "Explain why not run"}
+      ]
+    }
+  ],
+  "risks": ["state what remains uncertain"],
+  "artifacts": []
+}
